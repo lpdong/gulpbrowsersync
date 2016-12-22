@@ -8,8 +8,8 @@ var browsersync = require('browser-sync').create();
 
 var del=require('del');
 gulp.task('clean',function(cb){
-	del(['dist/*']);
-	cb();
+	return del(['dist/*'],cb);
+	
 })
 gulp.task('scripts', function() {
 	gulp.src('js/*.js')               //需要操作的源文件
@@ -52,7 +52,7 @@ gulp.task('html', function() {
 		.pipe(browsersync.stream());
 });
 
-gulp.task('serve', ['clean'], function() {
+gulp.task('default', ['clean'], function() {
 	gulp.start('scripts','style','image','html');
 	browsersync.init({
 		port: 2016,
@@ -66,4 +66,3 @@ gulp.task('serve', ['clean'], function() {
 	gulp.watch('*.html', ['html']);
 });
 
-gulp.task('default',['serve']);
